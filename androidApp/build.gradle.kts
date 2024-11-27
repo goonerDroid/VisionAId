@@ -17,7 +17,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion =
+            libs.versions.compose.compiler
+                .get()
     }
     packaging {
         resources {
@@ -40,9 +42,31 @@ android {
 
 dependencies {
     implementation(projects.shared)
+
+    // Compose
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
+
+    // Android Core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+
+    // Koin for Android
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // CameraX
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+
+    // Azure SDK
+//    implementation(libs.azure.security.keyvault.secrets)
+//    implementation(libs.azure.identity)
+
     debugImplementation(libs.compose.ui.tooling)
 }
