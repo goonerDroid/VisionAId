@@ -24,6 +24,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/io.netty.versions.properties"
         }
     }
     buildTypes {
@@ -64,9 +66,10 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
-    // Azure SDK
-//    implementation(libs.azure.security.keyvault.secrets)
-//    implementation(libs.azure.identity)
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
 
     debugImplementation(libs.compose.ui.tooling)
 }

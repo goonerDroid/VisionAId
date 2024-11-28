@@ -21,12 +21,34 @@ class MainActivity : ComponentActivity() {
                 ) {
                     CameraScreen(
                         onCaptureImage = { uri ->
-                            // You can now pass this to your Azure Vision services
-                            Log.e("MainActivity", uri.toString())
+                            /* // Convert URI to Bitmap
+                             contentResolver.openInputStream(uri)?.use { inputStream ->
+                                 val bitmap = BitmapFactory.decodeStream(inputStream)
+
+                                 // Process image with Azure Vision
+                                 azureVisionClient
+                                     .processImage(bitmap)
+                                     .onEach { result ->
+                                         when (result) {
+                                             is AzureVisionClient.VisionResult.Success -> {
+                                                 Log.d("Vision", "Text: ${result.text}")
+                                                 Log.d("Vision", "Confidence: ${result.confidence}")
+                                                 // Here you can implement TTS to read the text
+                                             }
+
+                                             is AzureVisionClient.VisionResult.Error -> {
+                                                 Log.e("Vision", result.message)
+                                             }
+                                         }
+                                     }.catch { e ->
+                                         Log.e("Vision", "Error processing image", e)
+                                     }
+                             }*/
+
+//                            val key = azureVisionClient.getKey()
                         },
                         onCaptureError = { error ->
-                            // Handle any errors that occur during camera operation
-                            Log.e("MainActivity", error)
+                            Log.e("Camera", error)
                         },
                     )
                 }

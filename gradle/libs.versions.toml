@@ -1,7 +1,5 @@
 [versions]
 agp = "8.3.2"
-azureIdentity = "1.8.0"
-azureSecurityKeyvaultSecrets = "4.5.1"
 cameraCore = "1.4.0"
 coreKtx = "1.12.0"
 kermit = "2.0.2"
@@ -26,8 +24,6 @@ androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-azure-identity = { module = "com.azure:azure-identity", version.ref = "azureIdentity" }
-azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets", version.ref = "azureSecurityKeyvaultSecrets" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCore" }
