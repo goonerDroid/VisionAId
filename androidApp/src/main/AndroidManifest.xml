@@ -4,6 +4,7 @@
 
   <application
     android:allowBackup="false"
+    android:networkSecurityConfig="@xml/network_security_config"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
     <activity
@@ -21,4 +22,5 @@
     tools:ignore="ManifestOrder" />
 
   <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
