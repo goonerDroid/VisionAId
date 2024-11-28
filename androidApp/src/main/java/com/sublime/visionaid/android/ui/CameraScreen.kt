@@ -49,7 +49,12 @@ fun CameraScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         if (grantCameraPermission) {
-            CameraContent(onCaptureImage = onCaptureImage, onCaptureError = onCaptureError)
+            CameraContent(
+                onCaptureImage = { uri ->
+                    onCaptureImage(uri)
+                },
+                onCaptureError = onCaptureError,
+            )
         } else {
             NoPermissionScreen(
                 onRequestPermission = { permissionLauncher.launch(Manifest.permission.CAMERA) },
@@ -60,7 +65,7 @@ fun CameraScreen(
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-private fun NoPermissionScreen(onRequestPermission: () -> Unit) {
+fun NoPermissionScreen(onRequestPermission: () -> Unit) {
     Column(
         modifier =
             Modifier

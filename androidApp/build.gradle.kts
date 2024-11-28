@@ -66,6 +66,12 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Coil
+    implementation(libs.coil.compose)
+
     // Ktor
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.android)
