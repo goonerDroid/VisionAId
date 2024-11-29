@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun CameraScreen(
+    isLoading: Boolean,
     onCaptureImage: (Uri) -> Unit,
     onCaptureError: (String) -> Unit,
 ) {
@@ -50,9 +51,8 @@ fun CameraScreen(
     ) {
         if (grantCameraPermission) {
             CameraContent(
-                onCaptureImage = { uri ->
-                    onCaptureImage(uri)
-                },
+                isLoading = isLoading,
+                onCaptureImage = onCaptureImage,
                 onCaptureError = onCaptureError,
             )
         } else {
