@@ -86,7 +86,7 @@ fun MainScreen(imageAnalysisService: ImageAnalysisService) {
                                 result
                                     .onSuccess { response ->
                                         analysisResult =
-                                            response.getMostConfidentDenseCaption()?.text
+                                            response.caption
                                                 ?: "No description available"
                                         navController.navigate("results")
                                     }.onFailure { error ->
