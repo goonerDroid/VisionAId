@@ -85,7 +85,9 @@ fun MainScreen(imageAnalysisService: ImageAnalysisService) {
                                 val result = imageAnalysisService.analyzeImage(uri.toString())
                                 result
                                     .onSuccess { response ->
-                                        analysisResult = response.caption ?: "No description available"
+                                        analysisResult =
+                                            response.getMostConfidentDenseCaption()?.text
+                                                ?: "No description available"
                                         navController.navigate("results")
                                     }.onFailure { error ->
                                         // Handle error
@@ -110,18 +112,9 @@ fun MainScreen(imageAnalysisService: ImageAnalysisService) {
                         AnalysisResultsScreen(
                             imageUri = uri,
                             analysisResult = result,
-                            onShareResult = {
-                                // Implement share functionality
+                            onBack = {
+                                navController.navigateUp()
                             },
-                            onSaveResult = {
-                                // Implement save functionality
-                            },
-                            onFeedback = { isPositive ->
-                                // Handle feedback
-                            },
-//                            onBack = {
-//                                navController.navigateUp()
-//                            }
                         )
                     }
                 }

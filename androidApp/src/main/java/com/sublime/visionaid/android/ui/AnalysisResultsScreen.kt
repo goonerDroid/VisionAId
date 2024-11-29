@@ -6,15 +6,12 @@ import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,16 +31,14 @@ import coil.compose.AsyncImage
 fun AnalysisResultsScreen(
     imageUri: Uri,
     analysisResult: String,
-    onShareResult: () -> Unit,
-    onSaveResult: () -> Unit,
-    onFeedback: (Boolean) -> Unit,
+    onBack: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         // Top Bar
         TopAppBar(
             title = { Text("Analysis Results") },
             navigationIcon = {
-                IconButton(onClick = { /* Handle back */ }) {
+                IconButton(onClick = { onBack() }) {
                     Icon(Icons.Default.ArrowBack, "Back")
                 }
             },
@@ -78,33 +73,33 @@ fun AnalysisResultsScreen(
                     style = MaterialTheme.typography.bodyLarge,
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                // Feedback Section
+//                Text(
+//                    "How did you like this result?",
+//                    style = MaterialTheme.typography.titleMedium,
+//                )
 
-                // Feedback Section
-                Text(
-                    "How did you like this result?",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-
-                Row(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                ) {
-                    IconButton(
-                        onClick = { onFeedback(false) },
-                    ) {
-                        Icon(Icons.Default.Clear, "Negative Feedback")
-                    }
-
-                    IconButton(
-                        onClick = { onFeedback(true) },
-                    ) {
-                        Icon(Icons.Default.Check, "Positive Feedback")
-                    }
-                }
+//                Row(
+//                    modifier =
+//                        Modifier
+//                            .fillMaxWidth()
+//                            .padding(vertical = 8.dp),
+//                    horizontalArrangement = Arrangement.SpaceEvenly,
+//                ) {
+//                    IconButton(
+//                        onClick = { onFeedback(false) },
+//                    ) {
+//                        Icon(Icons.Default.Clear, "Negative Feedback")
+//                    }
+//
+//                    IconButton(
+//                        onClick = { onFeedback(true) },
+//                    ) {
+//                        Icon(Icons.Default.Check, "Positive Feedback")
+//                    }
+//                }
 
                 // Action Buttons
                 Row(
