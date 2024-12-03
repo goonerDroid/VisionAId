@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -43,27 +42,30 @@ fun AnalysisResultScreen(
     analysisState: ImageAnalysisState,
     onBack: () -> Unit,
 ) {
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(analysisState) {
         if (analysisState is ImageAnalysisState.Error) {
-            snackBarHostState.showSnackbar(
+            snackbarHostState.showSnackbar(
                 message = analysisState.message,
             )
         }
     }
 
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(hostState = snackBarHostState) { data ->
-                Snackbar(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                    snackbarData = data,
-                )
-            }
-        },
-        topBar = {
+    Box(modifier = Modifier.fillMaxSize()) {
+        AsyncImage(
+            model = imageUri,
+            contentDescription = "Analyzed Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(Color.Black.copy(alpha = 0.65f)),
+        ) {
             TopAppBar(
                 title = { Text("Image Scene") },
                 navigationIcon = {
@@ -77,45 +79,48 @@ fun AnalysisResultScreen(
                 },
                 colors =
                     TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Black.copy(alpha = 0.45f),
+                        containerColor = Color.Transparent,
                         titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White,
                     ),
             )
-        },
-    ) { paddingValues ->
-        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
-            AsyncImage(
-                model = imageUri,
-                contentDescription = "Analyzed Image",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop,
-            )
+        }
 
-            if (analysisState is ImageAnalysisState.Success) {
-                Box(
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter),
+        ) { data ->
+            Snackbar(
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                snackbarData = data,
+            )
+        }
+
+        if (analysisState is ImageAnalysisState.Success) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .background(Color.Black.copy(alpha = 0.45f))
+                        .padding(16.dp),
+            ) {
+                Text(
+                    text = analysisState.result,
+                    style =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            color = Color.White,
+                            fontSize = 28.sp,
+                            letterSpacing = 2.sp,
+                            fontWeight = FontWeight.Normal,
+                        ),
+                    textAlign = TextAlign.Center,
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .align(Alignment.BottomCenter)
-                            .background(Color.Black.copy(alpha = 0.7f))
-                            .padding(16.dp),
-                ) {
-                    Text(
-                        text = analysisState.result,
-                        style =
-                            MaterialTheme.typography.bodyLarge.copy(
-                                color = Color.White,
-                                fontSize = 28.sp,
-                                letterSpacing = 2.sp,
-                                fontWeight = FontWeight.Normal,
-                            ),
-                        textAlign = TextAlign.Center,
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 24.dp),
-                    )
-                }
+                            .padding(horizontal = 16.dp, vertical = 24.dp),
+                )
             }
         }
     }

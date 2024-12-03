@@ -80,6 +80,10 @@ class CameraViewModel(
         _imageCapture.value = null
     }
 
+    fun resetState() {
+        _analysisState.value = ImageAnalysisState.Idle
+    }
+
     @SuppressLint("RestrictedApi")
     fun setupCamera(
         context: Context,
