@@ -1,4 +1,4 @@
-package com.sublime.visionaid.android.ui
+package com.sublime.visionaid.android.ui.screens
 
 import android.Manifest
 import android.net.Uri
@@ -23,14 +23,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sublime.visionaid.android.ui.helpers.ActionType
+import com.sublime.visionaid.android.ui.viewmodel.CameraViewModel
+import com.sublime.visionaid.android.ui.widgets.CameraContent
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun CameraScreen(
     isLoading: Boolean,
-    onCaptureImage: (Uri) -> Unit,
+    onCaptureImage: (Uri, ActionType) -> Unit,
     onCaptureError: (String) -> Unit,
     modifier: Modifier = Modifier,
+    cameraViewModel: CameraViewModel,
 ) {
     var hasCameraPermission by remember { mutableStateOf(false) }
     val permissionLauncher =
@@ -46,6 +50,7 @@ fun CameraScreen(
     Box(modifier = modifier.fillMaxSize()) {
         if (hasCameraPermission) {
             CameraContent(
+                viewModel = cameraViewModel,
                 isLoading = isLoading,
                 onCaptureImage = onCaptureImage,
                 onCaptureError = onCaptureError,

@@ -3,8 +3,11 @@ package com.sublime.visionaid.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sublime.visionaid.android.services.AndroidImageFileProvider
-import com.sublime.visionaid.android.ui.MainScreen
+import com.sublime.visionaid.android.ui.helpers.MyApplicationTheme
+import com.sublime.visionaid.android.ui.screens.MainScreen
+import com.sublime.visionaid.android.ui.viewmodel.CameraViewModel
 import com.sublime.visionaid.services.ImageAnalysisService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -22,7 +25,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                MainScreen(imageAnalysisService)
+                val viewModel = viewModel { CameraViewModel(imageAnalysisService) }
+                MainScreen(viewModel)
             }
         }
     }
