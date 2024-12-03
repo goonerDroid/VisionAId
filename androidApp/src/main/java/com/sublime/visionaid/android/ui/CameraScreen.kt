@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,27 +30,21 @@ fun CameraScreen(
     isLoading: Boolean,
     onCaptureImage: (Uri) -> Unit,
     onCaptureError: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var grantCameraPermission by remember {
-        mutableStateOf(false)
-    }
+    var hasCameraPermission by remember { mutableStateOf(false) }
     val permissionLauncher =
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.RequestPermission(),
-            onResult = { granted ->
-                grantCameraPermission = granted
-            },
+            onResult = { granted -> hasCameraPermission = granted },
         )
 
     LaunchedEffect(Unit) {
         permissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        if (grantCameraPermission) {
+    Box(modifier = modifier.fillMaxSize()) {
+        if (hasCameraPermission) {
             CameraContent(
                 isLoading = isLoading,
                 onCaptureImage = onCaptureImage,
