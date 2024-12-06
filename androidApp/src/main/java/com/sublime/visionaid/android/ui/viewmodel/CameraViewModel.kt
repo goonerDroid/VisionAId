@@ -13,7 +13,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sublime.visionaid.android.ui.helpers.ActionType
+import com.sublime.visionaid.models.ImageAnalysisState
 import com.sublime.visionaid.services.ImageAnalysisService
+import com.sublime.visionaid.services.VoiceFeedbackManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class CameraViewModel(
     private val imageAnalysisService: ImageAnalysisService,
+    private val voiceFeedbackManager: VoiceFeedbackManager
 ) : ViewModel() {
     private var _imageCapture = MutableStateFlow<ImageCapture?>(null)
     val imageCapture: StateFlow<ImageCapture?> = _imageCapture.asStateFlow()
@@ -37,6 +40,8 @@ class CameraViewModel(
         viewModelScope.launch {
             try {
                 _analysisState.value = ImageAnalysisState.Loading
+                voiceFeedbackManager.handleAnalysisResult(_analysisState.value)
+
                 val result =
                     when (actionType) {
                         ActionType.DESCRIBE_SCENE -> imageAnalysisService.analyzeImage(imagePath)
@@ -68,8 +73,10 @@ class CameraViewModel(
                         _analysisState.value =
                             ImageAnalysisState.Error("Error analyzing image: ${error.message}")
                     }
+                voiceFeedbackManager.handleAnalysisResult(_analysisState.value)
             } catch (e: Exception) {
                 _analysisState.value = ImageAnalysisState.Error("Error: ${e.message}")
+                voiceFeedbackManager.handleAnalysisResult(_analysisState.value)
             }
         }
     }
@@ -78,6 +85,7 @@ class CameraViewModel(
         cameraProvider?.unbindAll()
         cameraProvider = null
         _imageCapture.value = null
+//        voiceFeedbackManager.stopSpeaking()//TODO dont call this over here yet! We can create a separate UI element to stop playback
     }
 
     fun resetState() {

@@ -46,9 +46,9 @@ internal fun ActionItemsPager(
         HorizontalPager(
             state = pagerState,
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(90.dp),
+            Modifier
+                .fillMaxWidth()
+                .height(90.dp),
             pageSpacing = 32.dp,
             contentPadding = PaddingValues(horizontal = 140.dp),
             pageSize = PageSize.Fixed(72.dp),
@@ -76,15 +76,15 @@ internal fun ActionItemsPager(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = if (isLoading) "Analyzing image..." else items[pagerState.currentPage].name,
+            text = if (isLoading) "Analyzing scene..." else items[pagerState.currentPage].name,
             color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
         )
     }
 }

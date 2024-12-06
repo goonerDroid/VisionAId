@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sublime.visionaid.android.ui.viewmodel.CameraViewModel
-import com.sublime.visionaid.android.ui.viewmodel.ImageAnalysisState
+import com.sublime.visionaid.models.ImageAnalysisState
 
 @Suppress("ktlint:standard:function-naming")
 @Composable

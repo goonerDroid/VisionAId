@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.sublime.visionaid.android.ui.viewmodel.ImageAnalysisState
+import com.sublime.visionaid.models.ImageAnalysisState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("ktlint:standard:function-naming")
@@ -62,9 +62,9 @@ fun AnalysisResultScreen(
 
         Box(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(Color.Black.copy(alpha = 0.65f)),
+            Modifier
+                .fillMaxWidth()
+                .background(Color.Black.copy(alpha = 0.65f)),
         ) {
             TopAppBar(
                 title = { Text("Image Scene") },
@@ -78,11 +78,11 @@ fun AnalysisResultScreen(
                     }
                 },
                 colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent,
-                        titleContentColor = Color.White,
-                        navigationIconContentColor = Color.White,
-                    ),
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent,
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                ),
             )
         }
 
@@ -100,26 +100,26 @@ fun AnalysisResultScreen(
         if (analysisState is ImageAnalysisState.Success) {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                        .background(Color.Black.copy(alpha = 0.45f))
-                        .padding(16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .background(Color.Black.copy(alpha = 0.45f))
+                    .padding(16.dp),
             ) {
                 Text(
                     text = analysisState.result,
                     style =
-                        MaterialTheme.typography.bodyLarge.copy(
-                            color = Color.White,
-                            fontSize = 28.sp,
-                            letterSpacing = 2.sp,
-                            fontWeight = FontWeight.Normal,
-                        ),
+                    MaterialTheme.typography.bodyLarge.copy(
+                        color = Color.White,
+                        fontSize = 28.sp,
+                        letterSpacing = 2.sp,
+                        fontWeight = FontWeight.Normal,
+                    ),
                     textAlign = TextAlign.Center,
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 24.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 24.dp),
                 )
             }
         }
