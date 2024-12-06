@@ -15,7 +15,7 @@ import io.ktor.http.HttpStatusCode
 class ImageAnalysisService(
     private val client: HttpClient,
     private val fileProvider: ImageFileProvider,
-    private val baseUrl: String = "http://192.168.1.37:8000",
+    private val baseUrl: String = BuildConfig.BASE_URL
 ) {
     suspend fun analyzeImage(imagePath: String): Result<ImageAnalysisResponse> =
         try {
